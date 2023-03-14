@@ -1,0 +1,25 @@
+version: '3'
+
+networks:
+  guardian:
+    driver: bridge
+
+services:
+  cache:
+    image: redis:7.0-alpine
+    hostname: cache.guardian.local
+    restart: always
+    ports:
+      - '6379:6379'
+    networks:
+      - guardian
+  app:
+    platform: linux/amd64
+    build: .
+    hostname: app.guardian.local
+    depends_on:
+      - cache
+    networks:
+      - guardian
+    ports:
+      - 4000:4000
