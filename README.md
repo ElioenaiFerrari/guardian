@@ -1,8 +1,8 @@
 # Guardian
 
-[dev.to-article]("https://dev.to/elioenaiferrari/rotation-keys-in-golang-506c")
+[Article](https://dev.to/elioenaiferrari/rotation-keys-in-golang-506c)
 
-The idea here is to rotate the ed25519 keys for the signatures of our tokens. In this way we achieve greater security and unpredictability with asymmetric encryption.
+The idea here is to rotate the ed25519 keys for the signatures of our tokens. In this way we achieve greater security and unpredictability with asymmetric signature.
 
 First, let's assemble our containers.
 
@@ -200,7 +200,7 @@ func (ks *KeyServer) Start(ctx context.Context) error {
 ```
 
 The `POST /api/v1/tokens` route will generate a token with the `claims defined in the body` sent (JSON). And the `GET /api/v1/tokens` route will only act as a validator for us to test our tokens.
-The token is encrypted with a `private ed2559 key` and decrypted with the `public key of that same key`.
+The token is signed with a `private ed2559 key` and validated with the `public key of that same key`.
 
 ```go
 // cmd/guardian/main.go
